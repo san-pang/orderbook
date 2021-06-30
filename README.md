@@ -15,8 +15,12 @@ sellorder := newMyOrder("030", "ord3", decimal.NewFromFloat(12.36), decimal.NewF
 orderbook := NewOrderBook("000776")
 
 // add order
-orderbook.AddOrder(buyorder.GetSide(), buyorder)
-orderbook.AddOrder(sellorder.GetSide(), sellorder)
+if err := orderbook.AddOrder(buyorder.GetSide(), buyorder); err != nil {
+  fmt.Println("add order failed:", err)
+}
+if err := orderbook.AddOrder(sellorder.GetSide(), sellorder); err != nil {
+  fmt.Println("add order failed:", err)
+}
 
 // cancel order
 if err := orderbook.CancelOrder(buyorder.GetSide(), buyorder.GetClOrdID()); err != nil {
